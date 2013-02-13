@@ -5,6 +5,7 @@ install:
   - sudo apt-get install mono-devel mono-gmcs mono-vbnc
   - gem install rake
   - gem install albacore
+  - chmod 744 /tools/rakehelper/*.sh
 script: rake
 notifications:
   email:
