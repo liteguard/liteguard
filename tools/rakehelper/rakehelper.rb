@@ -4,7 +4,7 @@ module RakeHelper
   end
 
   def RakeHelper.nuget_command
-    return use_mono ? File.dirname(__FILE__) + "/Nuget.Mono." + script_extension : ENV["NuGetConsole"]
+    return use_mono ? File.dirname(__FILE__) + "/NuGet.Mono." + script_extension : ENV["NuGetConsole"]
   end
 
   def RakeHelper.use_mono
