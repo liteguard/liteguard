@@ -6,7 +6,7 @@ install:
   - gem install rake
   - gem install albacore
   - chmod 744 tools/rakehelper/*.sh
-script: rake
+script: rake clean build spec
 notifications:
   email:
     - liteguardch@gmail.com
