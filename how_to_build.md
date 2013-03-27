@@ -11,6 +11,10 @@ You can also build the solution using Visual Studio 2012.
 
     `gem update --system`
 
+1. Intall Rake
+
+    `gem install rake`
+    
 1. Install the Albacore gem*:
 
     `gem install albacore`
