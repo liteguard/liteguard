@@ -26,7 +26,10 @@ Note that under Mono, the PCL target is [redirected](https://github.com/liteguar
 
 1. Install/update Rake, Albacore and Zip*:
 
-    `gem install rake albacore zip`
+    `gem install rake zip`
+
+    `gem install albacore -v 1.0.0` (Albacore breaks the build after 1.x -- we're looking into it)
+
 
 1. If you are using Windows and you want to build using the Microsoft .NET framework, ensure you have versions 3.5 and either 4.0 or 4.5 installed.
 
