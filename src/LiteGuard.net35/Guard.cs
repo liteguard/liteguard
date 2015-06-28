@@ -116,7 +116,7 @@ namespace LiteGuard
         /// <param name="argument">The argument.</param>
         /// <exception cref="ArgumentNullException"><paramref name="argument" /> is <c>null</c>.</exception>
         /// <exception cref="InvalidEnumArgumentException"><paramref name="argument" /> is not an enum type.</exception>
-        /// <exception cref="InvalidEnumArgumentException"><paramref name="argument"/>is not defined within Enum of <typeparam name="TEnumType"/></exception>
+        /// <exception cref="InvalidEnumArgumentException"><paramref name="argument"/>is not defined within Enum of <c>TEnumType</c></exception>
         [SuppressMessage("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode", Justification = "Source package.")]
         [DebuggerStepThrough]
         public static void AgainstInvalidEnumArgument<TEnumType>(string parameterName, [ValidatedNotNull]TEnumType argument)
@@ -136,7 +136,7 @@ namespace LiteGuard
         /// <param name="argumentProperty">The argument property.</param>
         /// <exception cref="ArgumentNullException"><paramref name="argumentProperty" /> is <c>null</c>.</exception>
         /// <exception cref="InvalidEnumArgumentException"><paramref name="argumentProperty" /> is not an enum type.</exception>
-        /// <exception cref="InvalidEnumArgumentException"><paramref name="argumentProperty"/>is not defined within Enum of <typeparam name="TEnumType"/></exception>
+        /// <exception cref="InvalidEnumArgumentException"><paramref name="argumentProperty"/>is not defined within Enum of <c>TEnumType</c></exception>
         [SuppressMessage("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode", Justification = "Source package.")]
         [DebuggerStepThrough]
         public static void AgainstInvalidEnumArgumentProperty<TEnumType>(
