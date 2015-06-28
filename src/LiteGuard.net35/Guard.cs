@@ -5,6 +5,7 @@
 namespace LiteGuard
 {
     using System;
+    using System.ComponentModel;
     using System.Diagnostics;
     using System.Diagnostics.CodeAnalysis;
     using System.Globalization;
@@ -106,6 +107,47 @@ namespace LiteGuard
                     parameterName);
             }
         }
+
+        /// <summary>
+        /// Guards against a null enum on <typeparamref name="TEnumType"/>.
+        /// </summary>
+        /// <typeparam name="TEnumType">The type of the property (should be an enum).</typeparam>
+        /// <param name="parameterName">Name of the parameter.</param>
+        /// <param name="argument">The argument.</param>
+        /// <exception cref="ArgumentNullException"><paramref name="argument" /> is <c>null</c>.</exception>
+        /// <exception cref="InvalidEnumArgumentException"><paramref name="argument" /> is not an enum type.</exception>
+        /// <exception cref="InvalidEnumArgumentException"><paramref name="argument"/>is not defined within Enum of <typeparam name="TEnumType"/></exception>
+        [SuppressMessage("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode", Justification = "Source package.")]
+        [DebuggerStepThrough]
+        public static void AgainstInvalidEnumArgument<TEnumType>(string parameterName, [ValidatedNotNull]TEnumType argument)
+            where TEnumType : struct
+        {
+            //TODO: Implement (just putting signature out there for WIP.) --SK
+            throw new NotImplementedException();
+        }
+
+
+        /// <summary>
+        /// Guards against a null enum on <typeparamref name="TEnumType"/>.
+        /// </summary>
+        /// <typeparam name="TEnumType">The type of the property (should be an enum).</typeparam>
+        /// <param name="parameterName">Name of the parameter.</param>
+        /// <param name="propertyName">Name of the property.</param>
+        /// <param name="argumentProperty">The argument property.</param>
+        /// <exception cref="ArgumentNullException"><paramref name="argumentProperty" /> is <c>null</c>.</exception>
+        /// <exception cref="InvalidEnumArgumentException"><paramref name="argumentProperty" /> is not an enum type.</exception>
+        /// <exception cref="InvalidEnumArgumentException"><paramref name="argumentProperty"/>is not defined within Enum of <typeparam name="TEnumType"/></exception>
+        [SuppressMessage("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode", Justification = "Source package.")]
+        [DebuggerStepThrough]
+        public static void AgainstInvalidEnumArgumentProperty<TEnumType>(
+            string parameterName, string propertyName, [ValidatedNotNull]TEnumType argumentProperty) where TEnumType : struct
+        {
+            //TODO: Implement (just putting signature out there for WIP.) --SK
+            throw new NotImplementedException();
+        }
+
+
+
 
         /// <summary>
         /// Determines whether the specified type is a nullable type.
