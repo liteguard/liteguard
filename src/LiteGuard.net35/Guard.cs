@@ -122,7 +122,7 @@ namespace LiteGuard
         public static void AgainstInvalidEnumArgument<TEnumType>(string parameterName, [ValidatedNotNull]TEnumType argument)
             where TEnumType : struct
         {
-            //TODO: Implement (just putting signature out there for WIP.) --SK
+            // TODO: Implement (just putting signature out there for WIP.) --SK
             throw new NotImplementedException();
         }
         
@@ -141,9 +141,9 @@ namespace LiteGuard
         public static void AgainstInvalidEnumArgumentProperty<TEnumType>(
             string parameterName, string propertyName, [ValidatedNotNull]TEnumType argumentProperty) where TEnumType : struct
         {
-            //TODO: Implement (just putting signature out there for WIP.) --SK
+            // TODO: Implement (just putting signature out there for WIP.) --SK
             throw new NotImplementedException();
-        }
+        } 
 
         /// <summary>
         /// Determines whether the specified type is a nullable type.
