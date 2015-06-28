@@ -125,8 +125,7 @@ namespace LiteGuard
             //TODO: Implement (just putting signature out there for WIP.) --SK
             throw new NotImplementedException();
         }
-
-
+        
         /// <summary>
         /// Guards against a null <c>enum</c> on <typeparamref name="TEnumType"/>.
         /// </summary>
@@ -145,9 +144,6 @@ namespace LiteGuard
             //TODO: Implement (just putting signature out there for WIP.) --SK
             throw new NotImplementedException();
         }
-
-
-
 
         /// <summary>
         /// Determines whether the specified type is a nullable type.
