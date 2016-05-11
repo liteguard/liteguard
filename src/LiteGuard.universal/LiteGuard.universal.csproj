@@ -48,7 +48,9 @@
     <Compile Include="..\CommonAssemblyInfo.cs">
       <Link>Properties\CommonAssemblyInfo.cs</Link>
     </Compile>
-    <Compile Include="Guard.cs" />
+    <Compile Include="..\LiteGuard\Guard.cs">
+      <Link>Guard.cs</Link>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <TargetPlatform Include="WindowsPhoneApp, Version=8.1" />

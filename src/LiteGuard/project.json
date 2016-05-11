@@ -1,0 +1,13 @@
+﻿{
+  "frameworks": {
+    "dnx451": { },
+    "dotnet": {
+      "dependencies": {
+        "System.Diagnostics.Debug": "4.0.0",
+        "System.Diagnostics.Tools": "4.0.0",
+        "System.Globalization": "4.0.0",
+        "System.Runtime": "4.0.0"
+      }
+    }
+  }
+}

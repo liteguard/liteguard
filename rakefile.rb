@@ -1,17 +1,18 @@
 require 'albacore'
 
 version = IO.read("src/CommonAssemblyInfo.cs").split(/AssemblyInformationalVersion\("/, 2)[1].split(/"/).first
-msbuild_command = "C:/Program Files (x86)/MSBuild/12.0/Bin/MSBuild.exe"
+msbuild_command = "C:/Program Files (x86)/MSBuild/14.0/Bin/MSBuild.exe"
 net20 = "2.0.50727"
 net40 = "4.0.30319"
-xunit_console = { :command => "src/packages/xunit.runners.1.9.2/tools/xunit.console.exe", :net_version => net20 }
-nuget_console = { :command => "src/packages/NuGet.CommandLine.2.8.3/tools/NuGet.exe", :net_version => net40 }
+xunit_console = { :command => "src/packages/xunit.runners.1.9.2/tools/xunit.console.clr4.exe", :net_version => net40 }
+nuget_console = { :command => "src/packages/NuGet.CommandLine.3.3.0/tools/NuGet.exe", :net_version => net40 }
 solution = "src/LiteGuard.sln"
 logs = "artifacts/logs"
 output = "artifacts/output"
 
 acceptance_tests = [
   "src/test/LiteGuard.Test.Acceptance.net35/bin/Debug/LiteGuard.Test.Acceptance.net35.dll",
+  "src/test/LiteGuard.Test.Acceptance.pcl/bin/Debug/LiteGuard.Test.Acceptance.pcl.dll"
 ]
 
 # NOTE (Adam): nuspec path values fail under Mono on Windows if using / or Mono on Linux if using \
@@ -75,22 +76,21 @@ desc "Prepare source code for packaging"
 task :src do
   if !use_mono
     platforms = [
-      { :name => "net35",     :source => "net35" },
-      { :name => "pcl",       :source => "net35" },
-      { :name => "sl5",       :source => "net35" },
-      { :name => "wp8",       :source => "net35" },
-      { :name => "universal", :source => "universal" },
-      { :name => "win8",      :source => "universal" },
-      { :name => "win81",     :source => "universal" },
-      { :name => "wpa81",     :source => "universal" },
+      { :path => "src/artifacts/bin/LiteGuard/Release", :source => "" },
+      { :path => "src/LiteGuard.net35/bin/Release",     :source => ".net35" },
+      { :path => "src/LiteGuard.pcl/bin/Release",       :source => "" },
+      { :path => "src/LiteGuard.universal/bin/Release", :source => "" },
+      { :path => "src/LiteGuard.win81/bin/Release",     :source => "" },
+      { :path => "src/LiteGuard.wp8/bin/Release",       :source => ".net35" },
+      { :path => "src/LiteGuard.wpa81/bin/Release",     :source => "" }
     ]
 
     platforms.each do |platform|
-        File.open("src/LiteGuard.#{platform[:source]}/Guard.cs") { |from|
+        File.open("src/LiteGuard#{platform[:source]}/Guard.cs") { |from|
           contents = from.read
           contents.sub!(/.*namespace LiteGuard/m, 'namespace $rootnamespace$')
           contents.sub!(/public static class/, 'internal static class')
-          File.open("src/LiteGuard.#{platform[:name]}/bin/Release/Guard.cs.pp", "w+") { |to| to.write(contents) }
+          File.open("#{platform[:path]}/Guard.cs.pp", "w+") { |to| to.write(contents) }
         }
     end
   end
