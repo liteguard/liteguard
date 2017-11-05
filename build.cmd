@@ -5,7 +5,7 @@ setlocal
 
 :: set tool versions
 set NUGET_VERSION=4.3.0
-set CSI_VERSION=2.4.0
+set DOTNET_SCRIPT_VERSION=0.15.0
 
 :: determine nuget cache dir
 set NUGET_CACHE_DIR=%LocalAppData%\.nuget\v%NUGET_VERSION%
@@ -27,8 +27,9 @@ if not exist %NUGET_LOCAL_DIR%\NuGet.exe (
 
 :: restore packages for build script
 echo Restoring NuGet packages for build script...
+%NUGET_LOCAL_DIR%\NuGet.exe restore .\packages.choco.config -PackagesDirectory ./packages.choco -NoCache -DirectDownload -Source https://chocolatey.org/api/v2/
 %NUGET_LOCAL_DIR%\NuGet.exe restore .\packages.config -PackagesDirectory ./packages
 
 :: run build script
 echo Running build script...
-".\packages\Microsoft.Net.Compilers.%CSI_VERSION%\tools\csi.exe" .\build.csx %*
+.\packages.choco\dotnet.script.%DOTNET_SCRIPT_VERSION%\Dotnet.Script\dotnet-script.cmd .\build.csx %*
