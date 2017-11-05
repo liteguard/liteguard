@@ -1,5 +1,6 @@
+#r "nuget:SimpleExec, 1.0.0"
+
 #load "packages/simple-targets-csx.5.3.0/simple-targets.csx"
-#load "scripts/cmd.csx"
 
 using System;
 using System.Collections.Generic;
@@ -7,6 +8,7 @@ using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using static SimpleTargets;
+using static SimpleExec.Command;
 
 // version
 var versionSuffix = Environment.GetEnvironmentVariable("VERSION_SUFFIX") ?? "";
@@ -33,11 +35,9 @@ targets.Add("logs", () => Directory.CreateDirectory(logs));
 targets.Add(
     "build",
     DependsOn("logs"),
-    () => Cmd(
-        "dotnet",
-        $"build LiteGuard.sln /property:Configuration=Release /nologo /maxcpucount " +
-            $"/fl /flp:LogFile={logs}/build.log;Verbosity=Detailed;PerformanceSummary " +
-            $"/bl:{logs}/build.binlog"));
+    () => Run(
+        "dotnet", "build", "LiteGuard.sln", "/property:Configuration=Release", "/nologo", "/maxcpucount",
+        "/fl", $"/flp:LogFile={logs}/build.log;Verbosity=Detailed;PerformanceSummary", $"/bl:{logs}/build.binlog"));
 
 targets.Add("output", () => Directory.CreateDirectory(output));
 
@@ -48,7 +48,7 @@ targets.Add(
     {
         foreach (var nuspec in new[] { "./src/LiteGuard/LiteGuard.nuspec", "./src/LiteGuard/LiteGuard.Source.nuspec", })
         {
-            Cmd(nuget, $"pack {nuspec} -Version {version} -OutputDirectory {output} -NoPackageAnalysis");
+            Run(nuget, "pack", nuspec, "-Version", version, "-OutputDirectory", output, "-NoPackageAnalysis");
         }
     });
 
@@ -58,10 +58,10 @@ targets.Add(
     () =>
     {
         var net452 = Path.GetFullPath("tests/LiteGuardTests/bin/Release/net452/LiteGuardTests.dll");
-        Cmd($"{xunitNet452}", $"{net452} -html {net452}.TestResults.html -xml {net452}.TestResults.xml");
+        Run(xunitNet452, net452, "-html", $"{net452}.TestResults.html", "-xml", $"{net452}.TestResults.xml");
 
         var netcoreApp2 = Path.GetFullPath("tests/LiteGuardTests/bin/Release/netcoreapp2.0/LiteGuardTests.dll");
-        Cmd("dotnet", $"{xunitNetCoreApp2} {netcoreApp2} -html {netcoreApp2}.TestResults.html -xml {netcoreApp2}.TestResults.xml");
+        Run("dotnet", xunitNetCoreApp2, netcoreApp2, "-html", $"{netcoreApp2}.TestResults.html", "-xml", $"{netcoreApp2}.TestResults.xml");
     });
 
 Run(Args, targets);
