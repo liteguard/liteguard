@@ -249,5 +249,157 @@ namespace LiteGuardTests.Acceptance
             "Then no exception should be thrown"
                 .x(() => Assert.Null(exception));
         }
+
+        [Scenario]
+        public static void NullString(string parameterName, string argument, Exception exception)
+        {
+            "Given a parameter name"
+                .x(() => parameterName = "foo");
+
+            "And a null string"
+                .x(() => argument = null);
+
+            "When guarding against a null or empty string"
+                .x(() => exception = Record.Exception(() => Guard.AgainstNullOrEmptyString(parameterName, argument)));
+
+            "Then the exception should be an argument null exception"
+                .x(() => Assert.IsType<ArgumentNullException>(exception));
+
+            "And the exception message should contain the parameter name and \"null\""
+                .x(() =>
+                {
+                    Assert.Contains(parameterName, exception.Message);
+                    Assert.Contains("null", exception.Message);
+                });
+
+            "And the exception parameter name should be the parameter name"
+                .x(() => Assert.Equal(parameterName, ((ArgumentNullException)exception).ParamName));
+        }
+
+        [Scenario]
+        public static void EmptyString(string parameterName, string argument, Exception exception)
+        {
+            "Given a parameter name"
+                .x(() => parameterName = "foo");
+
+            "And an empty string"
+                .x(() => argument = string.Empty);
+
+            "When guarding against an empty string"
+                .x(() => exception = Record.Exception(() => Guard.AgainstEmptyString(parameterName, argument)));
+
+            "Then the exception should be an argument exception"
+                .x(() => Assert.IsType<ArgumentException>(exception));
+
+            "And the exception message should contain the parameter name and \"empty string\""
+                .x(() =>
+                {
+                    Assert.Contains(parameterName, exception.Message);
+                    Assert.Contains("empty string", exception.Message);
+                });
+
+            "And the exception parameter name should be the parameter name"
+                .x(() => Assert.Equal(parameterName, ((ArgumentException)exception).ParamName));
+        }
+
+        [Scenario]
+        public static void NonEmptyNonWhiteSpaceString(string parameterName, string argument, Exception exception)
+        {
+            "Given a parameter name"
+                .x(() => parameterName = "foo");
+
+            "And a non-empty string"
+                .x(() => argument = "foobar");
+
+            "When guarding against an empty string"
+                .x(() => exception = Record.Exception(() => Guard.AgainstEmptyString(parameterName, argument)));
+
+            "Then no exception should be thrown"
+                .x(() => Assert.Null(exception));
+        }
+
+        [Scenario]
+        public static void WhiteSpaceString(string parameterName, string argument, Exception exception)
+        {
+            "Given a parameter name"
+                .x(() => parameterName = "foo");
+
+            "And a string consisting of white-space characters"
+                .x(() => argument = "   ");
+
+            "When guarding against an empty string"
+                .x(() => exception = Record.Exception(() => Guard.AgainstEmptyString(parameterName, argument)));
+
+            "Then no exception should be thrown"
+                .x(() => Assert.Null(exception));
+        }
+
+        [Scenario]
+        public static void AgainsNullOrWhiteSpaceString_WhiteSpace(string parameterName, string argument, Exception exception)
+        {
+            "Given a parameter name"
+                .x(() => parameterName = "foo");
+
+            "And a string consisting of white-space characters"
+                .x(() => argument = "   ");
+
+            "When guarding against a null or white-space string"
+                .x(() => exception = Record.Exception(() => Guard.AgainstNullOrWhiteSpaceString(parameterName, argument)));
+
+            "Then the exception should be an argument exception"
+                .x(() => Assert.IsType<ArgumentException>(exception));
+
+            "And the exception message should contain the parameter name and \"white-space string\""
+                .x(() =>
+                {
+                    Assert.Contains(parameterName, exception.Message);
+                    Assert.Contains("white-space string", exception.Message);
+                });
+
+            "And the exception parameter name should be the parameter name"
+                .x(() => Assert.Equal(parameterName, ((ArgumentException)exception).ParamName));
+        }
+
+        [Scenario]
+        public static void AgainsNullOrWhiteSpaceString_Null(string parameterName, string argument, Exception exception)
+        {
+            "Given a parameter name"
+                .x(() => parameterName = "foo");
+
+            "And a null string"
+                .x(() => argument = null);
+
+            "When guarding against a null or white-space string"
+                .x(() => exception = Record.Exception(() => Guard.AgainstNullOrWhiteSpaceString(parameterName, argument)));
+
+            "Then the exception should be an argument null exception"
+                .x(() => Assert.IsType<ArgumentNullException>(exception));
+
+            "And the exception message should contain the parameter name and \"null\""
+                .x(() =>
+                {
+                    Assert.Contains(parameterName, exception.Message);
+                    Assert.Contains("null", exception.Message);
+                });
+
+            "And the exception parameter name should be the parameter name"
+                .x(() => Assert.Equal(parameterName, ((ArgumentNullException)exception).ParamName));
+        }
+
+        [Scenario]
+        public static void AgainsNullOrWhiteSpaceString_ValidString(string parameterName, string argument, Exception exception)
+        {
+            "Given a parameter name"
+                .x(() => parameterName = "foo");
+
+            "And a valid string"
+                .x(() => argument = "foobaz");
+
+            "When guarding against a null or white-space string"
+                .x(() => exception = Record.Exception(() => Guard.AgainstNullOrWhiteSpaceString(parameterName, argument)));
+
+            "Then no exception should be thrown"
+                .x(() => Assert.Null(exception));
+        }
     }
 }
