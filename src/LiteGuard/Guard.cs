@@ -113,6 +113,60 @@ namespace LiteGuard
             }
         }
 
+        /// <summary>
+        /// Guards against an empty string.
+        /// </summary>
+        /// <param name="parameterName">Name of the parameter.</param>
+        /// <param name="argument">The string to check</param>
+        /// <exception cref="ArgumentException"><paramref name="argument" /> is the empty string.</exception>
+        [SuppressMessage("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode", Justification = "Source package.")]
+        [DebuggerStepThrough]
+        public static void AgainstEmptyString(string parameterName, string argument)
+        {
+            if (argument == string.Empty)
+            {
+                throw new ArgumentException(
+                    string.Format(CultureInfo.InvariantCulture, "{0} is an empty string.", parameterName),
+                    parameterName);
+            }
+        }
+
+        /// <summary>
+        /// Guards against a null or empty string.
+        /// </summary>
+        /// <param name="parameterName">Name of the parameter.</param>
+        /// <param name="argument">The string to check</param>
+        /// <exception cref="ArgumentException"><paramref name="argument" /> is <c>null</c>.</exception>
+        /// <exception cref="ArgumentException"><paramref name="argument" /> is the empty string.</exception>
+        [SuppressMessage("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode", Justification = "Source package.")]
+        [DebuggerStepThrough]
+        public static void AgainstNullOrEmptyString(string parameterName, string argument)
+        {
+            AgainstNullArgument(parameterName, argument);
+            AgainstEmptyString(parameterName, argument);
+        }
+
+        /// <summary>
+        /// Guards against a null, empty, or white-space string.
+        /// </summary>
+        /// <param name="parameterName">Name of the parameter.</param>
+        /// <param name="argument">The string to check</param>
+        /// <exception cref="ArgumentException"><paramref name="argument" /> is <c>null</c>.</exception>
+        /// <exception cref="ArgumentException"><paramref name="argument" /> is empty or consists only of white-space characters.</exception>
+        [SuppressMessage("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode", Justification = "Source package.")]
+        [DebuggerStepThrough]
+        public static void AgainstNullOrWhiteSpaceString(string parameterName, string argument)
+        {
+            AgainstNullArgument(parameterName, argument);
+
+            if (argument.Trim() == string.Empty)
+            {
+                throw new ArgumentException(
+                    string.Format(CultureInfo.InvariantCulture, "{0} is an empty or white-space string.", parameterName),
+                    parameterName);
+            }
+        }
+
 #if NETSTANDARD2_0
         /// <summary>
         /// Determines whether the specified type is a nullable type.
