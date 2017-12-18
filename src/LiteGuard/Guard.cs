@@ -10,6 +10,7 @@ namespace LiteGuard
     /// <summary>
     /// Provides guard clauses.
     /// </summary>
+    [DebuggerNonUserCode]
     public static class Guard
     {
         /// <summary>
@@ -23,6 +24,7 @@ namespace LiteGuard
         /// <typeparamref name="TArgument"/> is restricted to reference types to avoid boxing of value type objects.
         /// </remarks>
         [SuppressMessage("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode", Justification = "Source package.")]
+        [DebuggerHidden]
         [DebuggerStepThrough]
         public static void AgainstNullArgument<TArgument>(string parameterName, [ValidatedNotNull]TArgument argument)
             where TArgument : class
@@ -45,6 +47,7 @@ namespace LiteGuard
         /// Performs a type check to avoid boxing of value type objects.
         /// </remarks>
         [SuppressMessage("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode", Justification = "Source package.")]
+        [DebuggerHidden]
         [DebuggerStepThrough]
         public static void AgainstNullArgumentIfNullable<TArgument>(
             string parameterName, [ValidatedNotNull]TArgument argument)
@@ -72,6 +75,7 @@ namespace LiteGuard
         /// <typeparamref name="TProperty"/> is restricted to reference types to avoid boxing of value type objects.
         /// </remarks>
         [SuppressMessage("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode", Justification = "Source package.")]
+        [DebuggerHidden]
         [DebuggerStepThrough]
         public static void AgainstNullArgumentProperty<TProperty>(
             string parameterName, string propertyName, [ValidatedNotNull]TProperty argumentProperty)
@@ -97,6 +101,7 @@ namespace LiteGuard
         /// Performs a type check to avoid boxing of value type objects.
         /// </remarks>
         [SuppressMessage("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode", Justification = "Source package.")]
+        [DebuggerHidden]
         [DebuggerStepThrough]
         public static void AgainstNullArgumentPropertyIfNullable<TProperty>(
             string parameterName, string propertyName, [ValidatedNotNull]TProperty argumentProperty)
