@@ -1,5 +1,7 @@
 // Copyright (c) 2013 Adam Ralph.
 
+using JetBrains.Annotations;
+
 namespace LiteGuard
 {
     using System;
@@ -26,7 +28,8 @@ namespace LiteGuard
         [SuppressMessage("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode", Justification = "Source package.")]
         [DebuggerHidden]
         [DebuggerStepThrough]
-        public static void AgainstNullArgument<TArgument>(string parameterName, [ValidatedNotNull]TArgument argument)
+        [ContractAnnotation("argument:null=>void")]
+        public static void AgainstNullArgument<TArgument>([NotNull, InvokerParameterName]string parameterName, [ValidatedNotNull]TArgument argument)
             where TArgument : class
         {
             if (argument == null)
@@ -50,7 +53,7 @@ namespace LiteGuard
         [DebuggerHidden]
         [DebuggerStepThrough]
         public static void AgainstNullArgumentIfNullable<TArgument>(
-            string parameterName, [ValidatedNotNull]TArgument argument)
+            [NotNull, InvokerParameterName] string parameterName, [ValidatedNotNull]TArgument argument)
         {
 #if NETSTANDARD2_0
             if (typeof(TArgument).IsNullableType() && argument == null)
