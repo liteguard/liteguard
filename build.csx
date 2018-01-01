@@ -1,4 +1,4 @@
-#r "packages/SimpleExec.2.0.0/lib/netstandard1.3/SimpleExec.dll"
+#r "nuget:SimpleExec, 2.0.0"
 
 #load "packages/simple-targets-csx.6.0.0/contentFiles/csx/any/simple-targets.csx"
 
