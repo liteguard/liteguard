@@ -249,5 +249,41 @@ namespace LiteGuardTests.Acceptance
             "Then no exception should be thrown"
                 .x(() => Assert.Null(exception));
         }
+
+        [Scenario]
+        public static void ErrorConditionIsTrue(
+            Func<bool> func, string exceptionMessage, Exception exception)
+        {
+            "Given a callback condition that evaluates to true"
+                .x(() => func = () => true);
+
+            "And an exception message"
+                .x(() => exceptionMessage = "foo");
+
+            "When guarding against the specified condition"
+                .x(() => exception = Record.Exception(() =>
+                    Guard.Against<ArgumentException>(func, exceptionMessage)));
+
+            "Then the exception should be of type TException"
+                .x(() => Assert.IsType<ArgumentException>(exception));
+
+            "And the exception message should be the equal to the exception message parameter"
+                .x(() => Assert.Equal(exceptionMessage, exception.Message));
+        }
+
+        [Scenario]
+        public static void ErrorConditionIsFalse(
+            Func<bool> func, Exception exception)
+        {
+            "Given a callback condition that evaluates to false"
+                .x(() => func = () => false);
+
+            "When guarding against the specified condition"
+                .x(() => exception = Record.Exception(() =>
+                    Guard.Against<Exception>(func, "foo")));
+
+            "Then no exception should be thrown"
+                .x(() => Assert.Null(exception));
+        }
     }
 }
