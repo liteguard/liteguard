@@ -113,6 +113,23 @@ namespace LiteGuard
             }
         }
 
+        /// <summary>
+        /// Guards against an arbitrary condition.
+        /// </summary>
+        /// <typeparam name="TException">The type of exception to throw when the callback evaluates to true.</typeparam>
+        /// <param name="func">A callback that defines the condition to guard against.</param>
+        /// <param name="exceptionMessage">A custom exception exceptionMessage.</param>
+        [SuppressMessage("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode", Justification = "Source package.")]
+        [DebuggerStepThrough]
+        public static void Against<TException>(Func<bool> func, string exceptionMessage)
+            where TException : Exception
+        {
+            if (func.Invoke())
+            {
+                throw (TException)Activator.CreateInstance(typeof(TException), exceptionMessage);
+            }
+        }
+
 #if NETSTANDARD2_0
         /// <summary>
         /// Determines whether the specified type is a nullable type.
