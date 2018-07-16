@@ -1,5 +1,7 @@
 // Copyright (c) 2013 Adam Ralph.
 
+using JetBrains.Annotations;
+
 namespace LiteGuard
 {
     using System;
@@ -24,8 +26,10 @@ namespace LiteGuard
         /// <typeparamref name="TArgument"/> is restricted to reference types to avoid boxing of value type objects.
         /// </remarks>
         [SuppressMessage("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode", Justification = "Source package.")]
+        [DebuggerHidden]
         [DebuggerStepThrough]
-        public static void AgainstNullArgument<TArgument>(string parameterName, [ValidatedNotNull]TArgument argument)
+        [ContractAnnotation("argument:null=>void")]
+        public static void AgainstNullArgument<TArgument>([NotNull, InvokerParameterName]string parameterName, [ValidatedNotNull]TArgument argument)
             where TArgument : class
         {
             if (argument == null)
@@ -46,9 +50,10 @@ namespace LiteGuard
         /// Performs a type check to avoid boxing of value type objects.
         /// </remarks>
         [SuppressMessage("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode", Justification = "Source package.")]
+        [DebuggerHidden]
         [DebuggerStepThrough]
         public static void AgainstNullArgumentIfNullable<TArgument>(
-            string parameterName, [ValidatedNotNull]TArgument argument)
+            [NotNull, InvokerParameterName] string parameterName, [ValidatedNotNull]TArgument argument)
         {
 #if NETSTANDARD2_0
             if (typeof(TArgument).IsNullableType() && argument == null)
@@ -73,6 +78,7 @@ namespace LiteGuard
         /// <typeparamref name="TProperty"/> is restricted to reference types to avoid boxing of value type objects.
         /// </remarks>
         [SuppressMessage("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode", Justification = "Source package.")]
+        [DebuggerHidden]
         [DebuggerStepThrough]
         public static void AgainstNullArgumentProperty<TProperty>(
             string parameterName, string propertyName, [ValidatedNotNull]TProperty argumentProperty)
@@ -98,6 +104,7 @@ namespace LiteGuard
         /// Performs a type check to avoid boxing of value type objects.
         /// </remarks>
         [SuppressMessage("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode", Justification = "Source package.")]
+        [DebuggerHidden]
         [DebuggerStepThrough]
         public static void AgainstNullArgumentPropertyIfNullable<TProperty>(
             string parameterName, string propertyName, [ValidatedNotNull]TProperty argumentProperty)
