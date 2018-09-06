@@ -9,7 +9,7 @@ branches:
   - master
   - /release-.*/
 build_script:
-- cmd: ./build.cmd
+- ps: ./build.ps1
 - sh: ./build.sh
 test: off
 artifacts:

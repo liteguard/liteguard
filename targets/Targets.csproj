@@ -7,6 +7,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="ThisPackageDoesNotExist" Version="1.0.0" />
     <PackageReference Include="Bullseye" Version="1.2.0-rc.2" />
     <PackageReference Include="SimpleExec" Version="2.2.0" />
   </ItemGroup>
